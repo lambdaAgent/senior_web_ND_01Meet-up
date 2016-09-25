@@ -21,7 +21,7 @@ class Navbar extends React.Component {
         	<nav className="navbar navbar-inverse navbar-fixed-top">
 				<div className="container">
 					<div className="navbar-header">
-						<Link to="/" className="navbar-brand">Event Creator</Link>
+						<Link to="/" className="navbar-brand">Event Planner</Link>
 						<div className="nav navbar-nav collapsed pull-right" 
 						     style={{display: this.state.width <= 760 ? "inherit" : "none"
 						     	,marginRight: 8}}>
