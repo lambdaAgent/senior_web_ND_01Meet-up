@@ -1,14 +1,12 @@
 import React from 'react';
 import FormGroup from "./FormGroup";
 import Navbar from "./Navbar";
-import { Validation } from "../helper/helper.js"
+import { Validation } from "../helper/helper.js";
+import { browserHistory } from "react-router";
 const $ = require("jquery");
 
 class Login extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+  
     validateRequired(e){
       e.preventDefault();
       const form = $('form')
@@ -24,7 +22,8 @@ class Login extends React.Component {
 
       // if form is valid, submit 
       if(form[0].checkValidity()){
-        return document.getElementById("loginForm").submit();
+        //return document.getElementById("loginForm").submit();
+        return browserHistory.push("/")
       }
     }
     validateEmpty(e){
@@ -36,7 +35,7 @@ class Login extends React.Component {
       if(!notEmpty){
         return;
       }
-      var regex = /^(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
+      // var regex = /^(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
 
       var password = e.target.value;
       if(password.length <= 8){
