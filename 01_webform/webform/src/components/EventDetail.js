@@ -8,7 +8,7 @@ const EventDetail = (props) => {
 	const startDate = moment(e.startDateAndTime).format("MMMM Do YYYY")
 	const startTime = moment(e.startDateAndTime).format("h:mm:ss a")
 	const endDate = moment(e.endDateAndTime).format("MMMM Do YYYY")
-	const endTime = moment(e.endDateAndTime).format("h:mm:ss a");
+	const endTime = moment(e.endDateAndTime).format("h:mm a");
 	const guests = e.GuestList.map(g => <li>{g.firstName + " " + g.lastName}</li>)
 	const message = ("message" in e) ? e.message : "";
 	return(

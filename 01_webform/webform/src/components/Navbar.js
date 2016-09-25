@@ -17,8 +17,6 @@ class Navbar extends React.Component {
         this.updateDimensions.call(this)
     }
     render() {
-    	        console.log("screen", this.state.width)
-
         return(
         	<nav className="navbar navbar-inverse navbar-fixed-top">
 				<div className="container">

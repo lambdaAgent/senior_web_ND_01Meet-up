@@ -11,14 +11,28 @@ class Login extends React.Component {
 
     validateRequired(e){
       e.preventDefault();
+      const form = $('form')
+      const submitButton = document.getElementById("btnSubmit")
+      const email = document.getElementById("email")
+      const password = document.getElementById("password")
+      
       Validation.validateRequired($, e, ["firstname", "lastname", "email", "password"], 'registration')
+      email.focus()
+      password.focus()
+      submitButton.focus()
+
+
+      // if form is valid, submit 
+      if(form[0].checkValidity()){
+        return document.getElementById("loginForm").submit();
+      }
     }
     validateEmpty(e){
       Validation.validateEmpty($, e);
     }
 
     validatePassword(e){
-      var notEmpty = this.validateEmpty.call(this, e);
+      var notEmpty = Validation.validateEmpty($, e);
       if(!notEmpty){
         return;
       }
@@ -40,7 +54,7 @@ class Login extends React.Component {
     }
 
     validateEmail(e){
-      var notEmpty = this.validateEmpty.call(this, e);
+      var notEmpty = Validation.validateEmpty($, e);
       if(!notEmpty){ //if empty
         return;
       }
@@ -60,7 +74,7 @@ class Login extends React.Component {
             <div>
                 <Navbar />
                 <div className="container">
-                	<form name="registration" method="POST" action="/" 
+                	<form id="loginForm" name="registration" method="POST" action="/" 
                         style={{maxWidth: "400px", margin: "0 auto"}}>
                   <div className="">
                 		    <FormGroup label="firstname"
@@ -82,8 +96,8 @@ class Login extends React.Component {
                                    offFocus={this.validatePassword.bind(this)}
                                    pattern="^(?=.*[A-Z])[a-zA-Z0-9]{8,}$"/>
                     <div className="form-actions">               
-                		  <input type="submit" className="btn btn-primary" 
-                             onClick={this.validateRequired.bind(this)}/>
+                		  <button id="btnSubmit" className="btn btn-primary btn-large" 
+                             onClick={this.validateRequired.bind(this)}>Signup</button>
                     </div>
                   </div>
                 	</form>

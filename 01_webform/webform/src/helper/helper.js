@@ -2,7 +2,6 @@
 const Validation = {
     validateRequired($, e, array, formname){
       e.preventDefault();
-      // var arr = ["firstname", "lastname", "email", "password"]
       const arr = array;
       const name = "form[name='"+formname+"']"
       var form = $(name);
@@ -24,11 +23,7 @@ const Validation = {
         }
       })    
 
-      // if form is valid, submit 
-        if(form[0].checkValidity()){
-          return form.submit();
-
-        }
+     
     },
 
     validateEmpty($, e){

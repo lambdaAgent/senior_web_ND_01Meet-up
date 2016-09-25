@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navbar from "./Navbar";
 import FormGroup from "./FormGroup";
 import {Validation} from "../helper/helper"
+import moment from "moment";
 const $ = require("jquery");
 
 
@@ -27,10 +28,14 @@ class App extends Component {
     this.setState({guests: newGuests})
   }
   validateRequired(e){
+    convertDate()
     e.preventDefault();
     validateGuestList();
-    const arr = ["eventName", "eventHost", "eventLocation"];
-    Validation.validateRequired($, e, arr, 'registration');
+    const arr = [ "eventName", "eventHost", "eventLocation", "eventStartDate", 
+                   "eventEndDate", "eventStartTime", "eventEndTime"
+                ];
+    Validation.validateRequired($, e, arr, 'event');
+
   }
   validateEmpty(e){
     Validation.validateEmpty($, e);    
@@ -42,11 +47,10 @@ class App extends Component {
           <div>
               <Navbar />
               <div className="container">
-                <form name="registration" method="POST" action="/" 
-                      style={{maxWidth: "400px", margin: "0 auto"}}>
+                <form name="event" method="POST" action="/" 
+                      style={{maxWidth: "700px", margin: "0 auto"}}>
                 <div className="">
                       <FormGroup label="Event Name" id="eventName"
-                                 type="text"
                                  required={true} 
                                  offFocus={this.validateEmpty.bind(this)}
                                  autofocus={true}/>
@@ -60,8 +64,27 @@ class App extends Component {
                                  autocomplete="address"
                                  offFocus={this.validateEmpty.bind(this)}
                                  required={true} />
-                      <EventDate label="startDate" 
-                                 required={true}/>
+
+                      <div className="row" style={{paddingLeft: "15px"}}>
+                        <FormGroup label="Event Start Date" id="eventStartDate"
+                                   type="date" style={{width: "45%", display: "inline-block", marginRight: "7.5%"}}
+                                   offFocus={this.validateEmpty.bind(this)}
+                                   required={true} />
+                        <FormGroup label="Event Start Time" id="eventStartTime"
+                                   type="time" style={{width: "45%", display: "inline-block"}}
+                                   offFocus={this.validateEmpty.bind(this)}
+                                   required={true} />
+                      </div>
+                      <div className="row" style={{paddingLeft: "15px"}}>
+                        <FormGroup label="Event End Date" id="eventEndDate"
+                                   type="date" style={{width: "45%", display: "inline-block", marginRight: "7.5%"}}
+                                   offFocus={this.validateEmpty.bind(this)}
+                                   required={true} />
+                        <FormGroup label="Event End Time" id="eventEndTime"
+                                   type="time" style={{width: "45%", display: "inline-block"}}
+                                   offFocus={this.validateEmpty.bind(this)}
+                                   required={true} />
+                      </div>
                       <GuestList guests={this.state.guests}
                                  validate={this.validateEmpty.bind(this)}
                                  addGuest={this.addGuest.bind(this)}
@@ -69,8 +92,10 @@ class App extends Component {
                                  />
                       <Message />
                   <div className="form-actions">               
-                    <input type="submit" className="btn btn-primary" 
-                           onClick={this.validateRequired.bind(this)}/>
+                    <button className="btn btn-primary btn-large" 
+                           onClick={this.validateRequired.bind(this)}>
+                           Submit
+                    </button>
                   </div>
                 </div>
                 </form>
@@ -78,14 +103,6 @@ class App extends Component {
           </div>
       );
     }
-}
-
-const EventDate = (props) => {
-  return(
-      <div>
-
-      </div>
-  )
 }
 
 
@@ -200,5 +217,38 @@ function validateGuestList(){
       $("#help-guestList").hide()
     }
 }
+
+function addGuestList(){
+  const guest = $("#guestListParent li");
+  const guests = []
+  const guestLength = guest.length
+  for(var i=0; i < guestLength; i++){
+    const guestFN = "#guestFirstName" + i;
+    const guestLN = "#guestLastName" + i;
+    const _guest = {
+      firstName: $(guestFN)[0].value,
+      lastName: $(guestLN)[0].value
+    }
+    guests.push(_guest)
+  }
+
+  return guests;
+}
+
+function convertDate(){
+  const date = "#eventStartDate"
+  const time = "#eventStartTime"
+  const datevalue = $(date)[0].value
+  const timevalue = $(time)[0].value
+  const timestamp = moment( datevalue + " " + timevalue).unix()  
+  const newDate = moment(timestamp).format("MMMM Do YYYY")
+  const newTime = moment(timestamp).format("h:mm a")
+
+  console.log(timestamp)
+  console.log(newDate)
+  console.log(newTime)
+}
+
+
 
 export default App;
