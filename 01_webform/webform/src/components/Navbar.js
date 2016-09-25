@@ -25,13 +25,13 @@ class Navbar extends React.Component {
 						<div className="nav navbar-nav collapsed pull-right" 
 						     style={{display: this.state.width <= 760 ? "inherit" : "none"
 						     	,marginRight: 8}}>
-							<li><Link to="/login">L</Link></li>
+							<li><Link to="/login">Signup</Link></li>
 						</div>
 					</div>
 					<div className="navbar-collapes" 
 					     style={{ display: this.state.width >= 760 ? "inherit" : "none" }}>
 						<ul className="nav navbar-nav navbar-right">
-							<li><Link to="/login">Login</Link></li>
+							<li><Link to="/login">Signup</Link></li>
 						</ul>
 					</div>
 					{/* show mobile */}

@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 import FormGroup from "./FormGroup";
 import {Validation} from "../helper/helper"
 import moment from "moment";
+import EventList  from "../events/eventList.js";
+import {browserHistory} from "react-router";
 const $ = require("jquery");
 
 
@@ -28,21 +30,26 @@ class App extends Component {
     this.setState({guests: newGuests})
   }
   validateRequired(e){
-    convertDate()
     e.preventDefault();
+  
     validateGuestList();
     const arr = [ "eventName", "eventHost", "eventLocation", "eventStartDate", 
                    "eventEndDate", "eventStartTime", "eventEndTime"
                 ];
+    //validating required inputs
     Validation.validateRequired($, e, arr, 'event');
 
+    //submitting
+    const dates = ["eventStartDate", "eventStartTime", "eventEndDate", "eventEndTime"]
+    const texts = ["eventName","eventType", "eventHost", "eventLocation", "eventMessage"]
+    addEvent(dates, texts);
   }
+
   validateEmpty(e){
     Validation.validateEmpty($, e);    
   }
 
    render() {
-      const props = this.props;
       return(
           <div>
               <Navbar />
@@ -52,16 +59,19 @@ class App extends Component {
                 <div className="">
                       <FormGroup label="Event Name" id="eventName"
                                  required={true} 
+                                 autocomplete="on"
                                  offFocus={this.validateEmpty.bind(this)}
                                  autofocus={true}/>
                       <EventType />
 
                       <FormGroup label="Event Host" id="eventHost"
                                  autocomplete="name"
+                                 autocomplete="on"
                                  offFocus={this.validateEmpty.bind(this)}
                                  required={true} />
                       <FormGroup label="Event Location" id="eventLocation"
                                  autocomplete="address"
+                                 autocomplete="on"
                                  offFocus={this.validateEmpty.bind(this)}
                                  required={true} />
 
@@ -112,7 +122,7 @@ const EventType = (props) => {
     <div className="form-group">
         <label htmlFor="eventType">Event Type</label>
         {/*<input name="eventType" className="form-control" id="eventType" list="eventType" placeholder="Event Type"/> */}
-        <select name="eventType" className="selectpicker form-control" data-live-search="true" value="Party">
+        <select name="eventType" id="eventType" className="selectpicker form-control" data-live-search="true" value="Party">
             <option value="Party">Party</option>
             <option value="Meeting">Meeting</option>
             <option value="Conference Talk">Conference Talk</option>
@@ -126,7 +136,7 @@ const EventType = (props) => {
 const Message = (props) => (
   <div className="form-group">
     <label htmlFor="message">Message (optional): </label>
-    <textarea className="form-control" name="message" id="message" placeholder="messages"></textarea>
+    <textarea className="form-control" name="message" id="eventMessage" placeholder="messages"></textarea>
   </div>
 )
 
@@ -210,7 +220,6 @@ const GuestList = (props) => {
 
 
 function validateGuestList(){
-  var firstName = $("#guestFirstName0")
   if( $("#guestFirstName0")[0].value === "" || $("#guestLastName0")[0].value === "" ){
       $("#help-guestList").show()
     } else {
@@ -220,7 +229,7 @@ function validateGuestList(){
 
 function addGuestList(){
   const guest = $("#guestListParent li");
-  const guests = []
+  const guests_arr = []
   const guestLength = guest.length
   for(var i=0; i < guestLength; i++){
     const guestFN = "#guestFirstName" + i;
@@ -229,26 +238,66 @@ function addGuestList(){
       firstName: $(guestFN)[0].value,
       lastName: $(guestLN)[0].value
     }
-    guests.push(_guest)
+    guests_arr.push(_guest)
   }
 
-  return guests;
+  return guests_arr;
 }
 
-function convertDate(){
-  const date = "#eventStartDate"
-  const time = "#eventStartTime"
+function convertDate(dateId, timeId){
+  // const date = "#eventStartDate"
+  // const time = "#eventStartTime"
+  const date = "#" + dateId;
+  const time = "#" + timeId;
   const datevalue = $(date)[0].value
   const timevalue = $(time)[0].value
-  const timestamp = moment( datevalue + " " + timevalue).unix()  
-  const newDate = moment(timestamp).format("MMMM Do YYYY")
-  const newTime = moment(timestamp).format("h:mm a")
-
-  console.log(timestamp)
-  console.log(newDate)
-  console.log(newTime)
+  const timestring = datevalue + " " + timevalue
+  const timestamp = moment(timestring, "YYYY-MM-Do h:mm a").valueOf();
+  // const newDate = moment(timestamp).format("MMMM Do YYYY")
+  // const newTime = moment(timestamp).format("h:mm a")
+  
+  return timestamp;
 }
 
+/*{ id:"wedding681"   ,
+      name:"Stars Marriage", 
+      type:"Wedding",
+      author:"Vidy", 
+      host:"Vidy", 
+      startDateAndTime:1464770169837, 
+      endDateAndTime:1465970169837, 
+      GuestList:[{
+                firstName: "David", 
+                lastName:"Boyd"
+              }, {
+                firstName: "Nicholas",
+                lastName:"Brody"
+              }, {
+                firstName: "Carrie",
+                lastName: "mathison"
+              }], 
+      location:"Gedung Perjuangan 25th",
+
+    const dates = ["eventStartDate", "eventStartTime", "eventEndDate", "eventEndTime"]
+    const texts = ["eventName","eventType", "eventHost", "eventLocation"]
+    },*/
+
+function addEvent(dateArr, textsArr){
+  var Event = {}
+  Event.id = document.getElementById(textsArr[1]).value + (Math.floor(Math.random() * 1000) + 1)
+  Event.name = document.getElementById(textsArr[0]).value
+  Event.type = document.getElementById(textsArr[1]).value
+  Event.author = document.getElementById(textsArr[2]).value
+  Event.host = document.getElementById(textsArr[2]).value
+  Event.location = document.getElementById(textsArr[3]).value
+  Event.startDateAndTime = convertDate(dateArr[0], dateArr[1])
+  Event.endDateAndTime = convertDate(dateArr[2], dateArr[3])
+  Event.GuestList = addGuestList();
+  Event.message = document.getElementById(textsArr[4]).value;
+
+  EventList.push(Event)
+  browserHistory.push("/")
+}
 
 
 export default App;

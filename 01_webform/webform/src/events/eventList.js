@@ -59,6 +59,9 @@ const Event = {
   },
   replace(events){
     this.eventList = events
+  },
+  push(event){
+    this.eventList.push(event)
   }
 }
 
