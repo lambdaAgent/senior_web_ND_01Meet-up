@@ -15,16 +15,14 @@
    So,  I decide not to use any authentication, nor saving the new user account <br/>
 **Signup form will route to "/" (homepage), after the user submit the form and pass all validation**
 6. directory for build:
-<code>
-   | /build
-     | /static
-       | /css
-         | main.be08d7cd.css  # compiled css
-       | /js      
-         | main.6b0807af.js   # compiled build javascript
-       | index.html           # index.html for build
-       | favicon.ico
-</code>
+   * /build
+     * /static
+       * /css
+         * main.be08d7cd.css  &nbsp;&nbsp; # compiled css
+       * /js      
+         * main.6b0807af.js   &nbsp;&nbsp; # compiled build javascript
+       * index.html           &nbsp;&nbsp; # index.html for build
+       * favicon.ico
 
 ### Notes for development files :
 1. I use <a href="https://facebook.github.io/react/blog/2016/07/22/create-apps-with-no-configuration.html">react-create-app</a> as a build tool, it uses webpack in background with very minimum configuration
@@ -33,19 +31,17 @@
 4. `$ npm start `  &nbsp;  *to run in development mode*
 5. there is only one **build** directory for production mode, **everything else are for development mode**
 6. directory: 
-<code>
-   | /build        # build directory for production only, **everything else are for development mode**
-   | index.html    # main html 
-   | package.json
-   | /node_modules
-   | /src
-     | /components # individual components
-     | /helper
-       | helper.js # helper functions
-     | /events
-       | eventList.js  # pre-coded events database
-     | favicon.ico
-     | index.css
-     | index.js    # app main entry
-     | logo.svc
-</code>
+   * /build        &nbsp;&nbsp; &nbsp;&nbsp;# build directory for production only, **everything else are for development mode**
+   * index.html    &nbsp;&nbsp; # main html 
+   * package.json
+   * /node_modules
+   * /src
+     * /components &nbsp;&nbsp; # individual components
+     * /helper
+       * helper.js &nbsp;&nbsp; # helper functions
+     * /events
+       * eventList.js &nbsp;&nbsp; # pre-coded events database
+     * favicon.ico
+     * index.css
+     * index.js &nbsp;&nbsp;  # app main entry
+     * logo.svc
