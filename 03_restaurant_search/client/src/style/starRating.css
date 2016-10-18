@@ -1,0 +1,70 @@
+.starRating_sys{
+    cursor: pointer;
+    font-size: 50px;
+    color:rgba(0,0,0,0.5);
+}
+.red{
+    color: black;
+}
+.card_image_overlay_VD{
+    width: 100%;
+    opacity: 0.8;
+    position: absolute;
+    top: 0px;
+    color: white; 
+    z-index:100;
+    text-align: center;
+    background-color: black;
+}
+
+.starRating_VD{
+    position: relative;
+    padding: 0;
+    font-size: 90px;
+    margin-right: 5px;
+    color: black !important;
+    float: right;
+    padding-left: 2px;
+    color: #FFB300;
+}
+
+.ratingNumber_VD{
+    background-color: black;
+    font-size: 25px !important; 
+    font-weight: bold !important;
+    position: absolute !important;
+    left:29px !important;
+    top:29px !important;
+    color: white;
+}
+
+.star-rating{
+    font-size: 0;
+}
+.star-rating__wrap{
+    display: inline-block;
+    font-size: 1rem;
+}
+.star-rating__wrap:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.star-rating__ico{
+    float: right;
+    padding-left: 2px;
+    cursor: pointer;
+    color: #FFB300;
+}
+.star-rating__ico:last-child{
+    padding-left: 0;
+}
+.star-rating__input{
+    display: none;
+}
+.star-rating__ico:hover:before,
+.star-rating__ico:hover ~ .star-rating__ico:before,
+.star-rating__input:checked ~ .star-rating__ico:before
+{
+    content: "\f005";
+}

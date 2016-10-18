@@ -4,7 +4,8 @@ This is the first project for Senior Web FrontEnd Nanodegree
 # Create Functional Form for both mobile and desktop
 1. each form must be validated immediately after the user move to other form.
 2. Each form is manually built with react 
-<img src="https://udacity-github-sync-content.s3.amazonaws.com/_imgs/10086/1474847917/Animation_2.gif"/>
+
+![alt form with validation](https://udacity-github-sync-content.s3.amazonaws.com/_imgs/10086/1474847917/Animation_2.gif "Logo Title Text 1")
 
 # RUN:
 1. cd build 
